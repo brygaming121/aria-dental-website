@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bright Smile Dental Clinic</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+    }
+
+    /* NAV */
+    nav {
+      background: #fff;
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo { font-size: 1.4rem; font-weight: 700; color: #0ea5e9; }
+    .logo span { color: #1e293b; }
+    nav ul { list-style: none; display: flex; gap: 28px; }
+    nav ul a { text-decoration: none; color: #475569; font-weight: 500; }
+    nav ul a:hover { color: #0ea5e9; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+      color: white;
+      padding: 80px 40px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2.8rem; margin-bottom: 16px; line-height: 1.2; }
+    .hero p { font-size: 1.15rem; opacity: 0.9; max-width: 560px; margin: 0 auto 36px; }
+
+    .aria-btn {
+      background: #fff;
+      color: #0ea5e9;
+      border: none;
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .aria-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+    .aria-btn .pulse {
+      width: 12px; height: 12px; border-radius: 50%;
+      background: #22c55e;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50%       { transform: scale(1.4); opacity: 0.7; }
+    }
+
+    /* SERVICES */
+    .section { padding: 64px 40px; max-width: 1100px; margin: 0 auto; }
+    .section h2 { font-size: 2rem; text-align: center; margin-bottom: 8px; }
+    .section .subtitle { text-align: center; color: #64748b; margin-bottom: 40px; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
+    .service-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: transform 0.2s;
+    }
+    .service-card:hover { transform: translateY(-4px); }
+    .service-card .icon { font-size: 2.2rem; margin-bottom: 12px; }
+    .service-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
+    .service-card p { font-size: 0.85rem; color: #64748b; }
+
+    /* HOURS */
+    .hours-section { background: #fff; padding: 64px 40px; }
+    .hours-inner { max-width: 700px; margin: 0 auto; }
+    .hours-inner h2 { font-size: 2rem; text-align: center; margin-bottom: 32px; }
+    .hours-table { width: 100%; border-collapse: collapse; }
+    .hours-table tr { border-bottom: 1px solid #e2e8f0; }
+    .hours-table td { padding: 12px 8px; color: #475569; }
+    .hours-table td:last-child { text-align: right; font-weight: 600; color: #0ea5e9; }
+
+    /* ARIA CTA */
+    .cta {
+      background: linear-gradient(135deg, #0f172a, #1e3a5f);
+      color: white;
+      padding: 64px 40px;
+      text-align: center;
+    }
+    .cta h2 { font-size: 2rem; margin-bottom: 12px; }
+    .cta p { opacity: 0.8; margin-bottom: 32px; font-size: 1.05rem; }
+    .cta .aria-btn { background: #0ea5e9; color: white; }
+
+    /* ARIA STATUS BAR */
+    .aria-status {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      background: #fff;
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      color: #475569;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      display: none;
+      align-items: center;
+      gap: 8px;
+      z-index: 9999;
+    }
+    .aria-status.show { display: flex; }
+    .aria-status .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
+
+    /* FOOTER */
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 24px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Bright<span>Smile</span> Dental</div>
+    <ul>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Hours</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>Your Smile, Our Priority</h1>
+    <p>Book your dental appointment instantly — just click below and talk to Aria, our AI receptionist. Available 24/7.</p>
+    <button class="aria-btn" onclick="startCall()">
+      <span class="pulse"></span>
+      Talk to Aria — Book Now
+    </button>
+  </section>
+
+  <!-- SERVICES -->
+  <div class="section">
+    <h2>Our Services</h2>
+    <p class="subtitle">Comprehensive dental care for the whole family</p>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="icon">🦷</div>
+        <h3>Dental Cleaning</h3>
+        <p>45 min · Preventive care</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">✨</div>
+        <h3>Teeth Whitening</h3>
+        <p>60 min · Cosmetic</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🔍</div>
+        <h3>General Checkup</h3>
+        <p>30 min · Consultation</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🦴</div>
+        <h3>Tooth Extraction</h3>
+        <p>45 min · Oral surgery</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">🔧</div>
+        <h3>Root Canal</h3>
+        <p>90 min · Restorative</p>
+      </div>
+      <div class="service-card">
+        <div class="icon">😁</div>
+        <h3>Orthodontics</h3>
+        <p>30 min · Braces consult</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOURS -->
+  <div class="hours-section">
+    <div class="hours-inner">
+      <h2>Office Hours</h2>
+      <table class="hours-table">
+        <tr><td>Monday – Friday</td><td>9:00 AM – 5:00 PM</td></tr>
+        <tr><td>Saturday</td><td>9:00 AM – 1:00 PM</td></tr>
+        <tr><td>Sunday</td><td>Closed</td></tr>
+        <tr><td>Public Holidays</td><td>Closed</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta">
+    <h2>Ready to Book?</h2>
+    <p>Aria is available 24/7 — no hold music, no waiting. Just click and talk.</p>
+    <button class="aria-btn" onclick="startCall()">
+      <span class="pulse"></span>
+      Call Aria Now
+    </button>
+  </section>
+
+  <footer>
+    &copy; 2026 BrightSmile Dental Clinic. All rights reserved.
+  </footer>
+
+  <!-- Aria status indicator -->
+  <div class="aria-status" id="ariaStatus">
+    <span class="dot"></span>
+    <span id="ariaStatusText">Aria is listening...</span>
+  </div>
+
+  <!-- Vapi Web SDK -->
+  <script>
+    const VAPI_PUBLIC_KEY = "bdb05aa4-9f37-4b0b-9774-c6ee21600545";
+    const ARIA_ASSISTANT  = "2b4a6a4b-97d0-4cf5-89ed-4e729532aa83";
+
+    var vapiInstance = null;
+
+    (function (d, t) {
+      var g = document.createElement(t), s = d.getElementsByTagName(t)[0];
+      g.src = "https://cdn.jsdelivr.net/gh/VapiAI/html-script-tag@latest/dist/assets/index.js";
+      g.defer = true; g.async = true;
+      s.parentNode.insertBefore(g, s);
+      g.onload = function () {
+        vapiInstance = window.vapiSDK.run({
+          apiKey:    VAPI_PUBLIC_KEY,
+          assistant: ARIA_ASSISTANT,
+          config: {
+            position: "bottom-right",
+            offset:   "28px",
+            width:    "56px",
+            height:   "56px",
+            idle:   { color: "#0ea5e9", type: "round", icon: "phone", title: "Talk to Aria" },
+            active: { color: "#ef4444", type: "round", icon: "phone" }
+          }
+        });
+        vapiInstance.on("call-start", function () {
+          document.getElementById("ariaStatusText").textContent = "Connected to Aria...";
+          document.getElementById("ariaStatus").classList.add("show");
+        });
+        vapiInstance.on("speech-start", function () {
+          document.getElementById("ariaStatusText").textContent = "Aria is speaking...";
+        });
+        vapiInstance.on("speech-end", function () {
+          document.getElementById("ariaStatusText").textContent = "Aria is listening...";
+        });
+        vapiInstance.on("call-end", function () {
+          document.getElementById("ariaStatus").classList.remove("show");
+        });
+      };
+    })(document, "script");
+
+    function startCall() {
+      if (vapiInstance) {
+        vapiInstance.start(ARIA_ASSISTANT);
+      } else {
+        alert("Aria is still loading, please wait a moment and try again.");
+      }
+    }
+  </script>
+
+</body>
+</html>

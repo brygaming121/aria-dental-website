@@ -232,6 +232,23 @@
     <span id="ariaStatusText">Aria is listening...</span>
   </div>
 
+  <!-- Custom floating button -->
+  <style>
+    #vapiFloat {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 60px; height: 60px; border-radius: 50%;
+      background: #0ea5e9; border: none; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      z-index: 9999; transition: background 0.2s, transform 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #vapiFloat:hover { transform: scale(1.08); }
+    #vapiFloat svg { width: 28px; height: 28px; fill: white; }
+  </style>
+  <button id="vapiFloat" onclick="startCall()" title="Talk to Aria">
+    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+  </button>
+
   <!-- Vapi Web SDK -->
   <script>
     const VAPI_PUBLIC_KEY = "bdb05aa4-9f37-4b0b-9774-c6ee21600545";
@@ -248,16 +265,10 @@
         vapiInstance = window.vapiSDK.run({
           apiKey:    VAPI_PUBLIC_KEY,
           assistant: ARIA_ASSISTANT,
-          config: {
-            position: "bottom-right",
-            offset:   "28px",
-            width:    "56px",
-            height:   "56px",
-            idle:   { color: "#0ea5e9", type: "round", icon: "phone", title: "Talk to Aria" },
-            active: { color: "#ef4444", type: "round", icon: "phone" }
-          }
+          config: { display: "none" }
         });
         vapiInstance.on("call-start", function () {
+          document.getElementById("vapiFloat").style.background = "#ef4444";
           document.getElementById("ariaStatusText").textContent = "Connected to Aria...";
           document.getElementById("ariaStatus").classList.add("show");
         });
@@ -268,6 +279,7 @@
           document.getElementById("ariaStatusText").textContent = "Aria is listening...";
         });
         vapiInstance.on("call-end", function () {
+          document.getElementById("vapiFloat").style.background = "#0ea5e9";
           document.getElementById("ariaStatus").classList.remove("show");
         });
       };

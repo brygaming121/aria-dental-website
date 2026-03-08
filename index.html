@@ -4,226 +4,587 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Ganaden Dental Clinic</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue:    #0891b2;   /* dental teal */
+      --blue-d:  #0e7490;
+      --blue-dk: #155e75;
+      --dark:    #0c1a20;
+      --slate:   #1a3340;
+      --muted:   #5a7a85;
+      --light:   #f0f9fb;   /* soft mint-white */
+      --white:   #ffffff;
+      --green:   #10b981;
+      --red:     #ef4444;
+      --mint:    #e0f7fa;
+      --teal-soft: rgba(8,145,178,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f8fafc;
-      color: #1e293b;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: #f0f9fb;
+      color: var(--slate);
+      overflow-x: hidden;
     }
 
-    /* NAV */
+    /* ── NAV ── */
     nav {
-      background: #fff;
-      padding: 16px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 0 48px;
+      height: 68px;
+      display: flex; align-items: center; justify-content: space-between;
     }
-    .logo { font-size: 1.4rem; font-weight: 700; color: #0ea5e9; }
-    .logo span { color: #1e293b; }
-    nav ul { list-style: none; display: flex; gap: 28px; }
-    nav ul a { text-decoration: none; color: #475569; font-weight: 500; }
-    nav ul a:hover { color: #0ea5e9; }
+    .logo {
+      font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px;
+      display: flex; align-items: center; gap: 10px;
+      color: var(--dark);
+    }
+    .logo-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dk));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      box-shadow: 0 2px 8px rgba(8,145,178,0.3);
+      overflow: hidden;
+    }
+    .logo span { color: var(--blue); }
+    nav ul { list-style: none; display: flex; gap: 32px; align-items: center; }
+    nav ul a { text-decoration: none; color: var(--muted); font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    nav ul a:hover { color: var(--blue); }
+    .nav-cta {
+      background: var(--blue); color: white !important;
+      padding: 8px 20px; border-radius: 8px;
+      font-weight: 600 !important; font-size: 0.88rem !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: var(--blue-dk) !important; color: white !important; transform: translateY(-1px); }
 
-    /* HERO */
+    /* ── HERO ── */
     .hero {
-      background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-      color: white;
-      padding: 80px 40px;
-      text-align: center;
+      min-height: 92vh;
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+      gap: 40px; padding: 80px 80px 80px 80px;
+      background: var(--white);
+      position: relative; overflow: hidden;
     }
-    .hero h1 { font-size: 2.8rem; margin-bottom: 16px; line-height: 1.2; }
-    .hero p { font-size: 1.15rem; opacity: 0.9; max-width: 560px; margin: 0 auto 36px; }
-
-    .aria-btn {
-      background: #fff;
-      color: #0ea5e9;
-      border: none;
-      padding: 16px 36px;
-      border-radius: 50px;
-      font-size: 1.05rem;
-      font-weight: 700;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; right: -200px;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(8,145,178,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -100px; left: -100px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(8,145,178,0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-left { z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(14,165,233,0.1); color: var(--blue-dk);
+      padding: 6px 14px; border-radius: 100px;
+      font-size: 0.8rem; font-weight: 600; letter-spacing: 0.3px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(14,165,233,0.2);
+    }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 1.5s infinite; }
+    .hero h1 {
+      font-size: 3.6rem; font-weight: 800; line-height: 1.1;
+      letter-spacing: -2px; color: var(--dark);
+      margin-bottom: 20px;
+    }
+    .hero h1 em { font-style: normal; color: var(--blue); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--muted); line-height: 1.7;
+      max-width: 440px; margin-bottom: 40px; font-weight: 400;
+    }
+    .hero-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dk));
+      color: white; border: none; cursor: pointer;
+      padding: 15px 30px; border-radius: 12px;
+      font-size: 0.97rem; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 10px;
+      box-shadow: 0 8px 24px rgba(14,165,233,0.35);
       transition: transform 0.2s, box-shadow 0.2s;
+      font-family: inherit;
     }
-    .aria-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
-    .aria-btn .pulse {
-      width: 12px; height: 12px; border-radius: 50%;
-      background: #22c55e;
-      animation: pulse 1.5s infinite;
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(14,165,233,0.45); }
+    .btn-ghost {
+      background: transparent; border: 1.5px solid #e2e8f0; color: var(--slate);
+      padding: 14px 24px; border-radius: 12px;
+      font-size: 0.9rem; font-weight: 600; cursor: pointer;
+      font-family: inherit; transition: border-color 0.2s, background 0.2s;
+      display: inline-flex; align-items: center; gap: 8px;
     }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50%       { transform: scale(1.4); opacity: 0.7; }
+    .btn-ghost:hover { border-color: var(--blue); background: rgba(14,165,233,0.04); }
+
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 48px;
+      padding-top: 32px; border-top: 1px solid #e2e8f0;
+    }
+    .stat-item { }
+    .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--dark); letter-spacing: -1px; }
+    .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 2px; font-weight: 500; }
+
+    /* Hero right — visual card */
+    .hero-right { display: flex; justify-content: center; align-items: center; z-index: 1; }
+    .hero-card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.1);
+      width: 100%; max-width: 380px;
+      border: 1px solid #e2e8f0;
+    }
+    .card-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
+    }
+    .card-avatar {
+      width: 52px; height: 52px; border-radius: 16px;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dk));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+    }
+    .card-header-text .name { font-weight: 700; font-size: 1rem; color: var(--dark); }
+    .card-header-text .role { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    .online-badge {
+      margin-left: auto;
+      background: rgba(34,197,94,0.1); color: #16a34a;
+      padding: 4px 10px; border-radius: 100px; font-size: 0.75rem; font-weight: 600;
+      display: flex; align-items: center; gap: 5px;
+      border: 1px solid rgba(34,197,94,0.2);
+    }
+    .online-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 1.5s infinite; }
+
+    .chat-bubbles { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .bubble {
+      padding: 11px 15px; border-radius: 14px;
+      font-size: 0.85rem; line-height: 1.5; max-width: 85%;
+    }
+    .bubble.aria {
+      background: var(--light); color: var(--slate);
+      border-bottom-left-radius: 4px; align-self: flex-start;
+    }
+    .bubble.user {
+      background: linear-gradient(135deg, var(--blue), var(--blue-dk));
+      color: white; border-bottom-right-radius: 4px; align-self: flex-end;
+    }
+    .bubble-typing {
+      background: var(--light); padding: 12px 16px; border-radius: 14px;
+      border-bottom-left-radius: 4px; align-self: flex-start;
+      display: flex; gap: 4px; align-items: center;
+    }
+    .typing-dot {
+      width: 7px; height: 7px; border-radius: 50%; background: var(--muted);
+      animation: typing 1.2s infinite;
+    }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes typing { 0%,100%{opacity:0.3;transform:translateY(0)} 50%{opacity:1;transform:translateY(-3px)} }
+
+    .card-services {
+      display: flex; gap: 8px; flex-wrap: wrap;
+    }
+    .chip {
+      background: var(--light); color: var(--muted);
+      padding: 5px 11px; border-radius: 8px; font-size: 0.75rem; font-weight: 500;
     }
 
-    /* SERVICES */
-    .section { padding: 64px 40px; max-width: 1100px; margin: 0 auto; }
-    .section h2 { font-size: 2rem; text-align: center; margin-bottom: 8px; }
-    .section .subtitle { text-align: center; color: #64748b; margin-bottom: 40px; }
+    /* ── SECTION WRAPPER ── */
+    .section { padding: 100px 80px; }
+    .section-label {
+      text-align: center; font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px;
+      color: var(--blue); text-transform: uppercase; margin-bottom: 12px;
+    }
+    .section-title {
+      text-align: center; font-size: 2.4rem; font-weight: 800;
+      color: var(--dark); letter-spacing: -1px; margin-bottom: 10px;
+    }
+    .section-sub {
+      text-align: center; color: var(--muted); font-size: 1rem;
+      max-width: 500px; margin: 0 auto 56px; line-height: 1.6;
+    }
 
+    /* ── SERVICES ── */
+    .services-bg { background: var(--white); border-top: 1px solid #d0eef5; border-bottom: 1px solid #d0eef5; }
     .services-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
     }
     .service-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: 28px 20px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      transition: transform 0.2s;
+      background: var(--white);
+      border-radius: 18px;
+      padding: 28px 22px;
+      border: 1px solid #e2e8f0;
+      transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+      cursor: default;
     }
-    .service-card:hover { transform: translateY(-4px); }
-    .service-card .icon { font-size: 2.2rem; margin-bottom: 12px; }
-    .service-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 6px; }
-    .service-card p { font-size: 0.85rem; color: #64748b; }
-
-    /* HOURS */
-    .hours-section { background: #fff; padding: 64px 40px; }
-    .hours-inner { max-width: 700px; margin: 0 auto; }
-    .hours-inner h2 { font-size: 2rem; text-align: center; margin-bottom: 32px; }
-    .hours-table { width: 100%; border-collapse: collapse; }
-    .hours-table tr { border-bottom: 1px solid #e2e8f0; }
-    .hours-table td { padding: 12px 8px; color: #475569; }
-    .hours-table td:last-child { text-align: right; font-weight: 600; color: #0ea5e9; }
-
-    /* ARIA CTA */
-    .cta {
-      background: linear-gradient(135deg, #0f172a, #1e3a5f);
-      color: white;
-      padding: 64px 40px;
-      text-align: center;
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(14,165,233,0.12);
+      border-color: rgba(14,165,233,0.3);
     }
-    .cta h2 { font-size: 2rem; margin-bottom: 12px; }
-    .cta p { opacity: 0.8; margin-bottom: 32px; font-size: 1.05rem; }
-    .cta .aria-btn { background: #0ea5e9; color: white; }
+    .service-icon {
+      width: 50px; height: 50px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(8,145,178,0.13), rgba(8,145,178,0.05));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 16px;
+      border: 1px solid rgba(8,145,178,0.15);
+    }
+    .service-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--dark); }
+    .service-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+    .service-tag {
+      display: inline-block; margin-top: 12px;
+      background: var(--light); color: var(--blue-dk);
+      padding: 3px 10px; border-radius: 6px; font-size: 0.73rem; font-weight: 600;
+    }
 
-    /* ARIA STATUS BAR */
+    /* ── WHY ARIA ── */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .feature-card {
+      background: var(--white); border-radius: 18px; padding: 32px 28px;
+      border: 1px solid #e2e8f0;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.07); }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 18px;
+    }
+    .fi-blue { background: rgba(14,165,233,0.1); }
+    .fi-green { background: rgba(34,197,94,0.1); }
+    .fi-purple { background: rgba(139,92,246,0.1); }
+    .fi-orange { background: rgba(249,115,22,0.1); }
+    .fi-pink { background: rgba(236,72,153,0.1); }
+    .fi-teal { background: rgba(20,184,166,0.1); }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+    .feature-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+
+    /* ── HOURS ── */
+    .hours-bg { background: var(--dark); }
+    .hours-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 900px; margin: 0 auto; }
+    .hours-left .section-title { text-align: left; color: var(--white); }
+    .hours-left .section-sub { text-align: left; color: rgba(255,255,255,0.5); margin-left: 0; }
+    .hours-left .section-label { text-align: left; }
+    .hours-table-wrap { }
+    .hours-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { color: rgba(255,255,255,0.7); font-size: 0.92rem; font-weight: 500; }
+    .hours-time { color: var(--blue); font-weight: 700; font-size: 0.92rem; }
+    .hours-time.closed { color: rgba(255,255,255,0.3); font-weight: 500; }
+
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      background: linear-gradient(135deg, #0891b2 0%, #0e7490 50%, #164e63 100%);
+      padding: 80px;
+      display: flex; justify-content: space-between; align-items: center; gap: 40px;
+      flex-wrap: wrap;
+    }
+    .cta-text h2 { font-size: 2.2rem; font-weight: 800; color: white; letter-spacing: -1px; margin-bottom: 10px; }
+    .cta-text p { color: rgba(255,255,255,0.75); font-size: 1rem; max-width: 460px; line-height: 1.6; }
+    .btn-white {
+      background: white; color: var(--blue-dk); border: none; cursor: pointer;
+      padding: 16px 32px; border-radius: 12px;
+      font-size: 1rem; font-weight: 700; font-family: inherit;
+      display: inline-flex; align-items: center; gap: 10px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.2); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #020617; color: rgba(255,255,255,0.35);
+      text-align: center; padding: 28px;
+      font-size: 0.85rem; letter-spacing: 0.2px;
+    }
+    footer span { color: var(--blue); }
+
+    /* ── ARIA STATUS ── */
     .aria-status {
-      position: fixed;
-      bottom: 100px;
-      right: 28px;
-      background: #fff;
-      border-radius: 12px;
-      padding: 10px 16px;
-      font-size: 0.85rem;
-      color: #475569;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-      display: none;
-      align-items: center;
-      gap: 8px;
-      z-index: 9999;
+      position: fixed; bottom: 104px; right: 28px;
+      background: var(--white); border-radius: 12px;
+      padding: 10px 16px; font-size: 0.82rem; color: var(--muted);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+      display: none; align-items: center; gap: 8px; z-index: 9999;
+      border: 1px solid #e2e8f0;
     }
     .aria-status.show { display: flex; }
-    .aria-status .dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; }
+    .aria-status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
 
-    /* FOOTER */
-    footer {
-      background: #0f172a;
-      color: #94a3b8;
-      text-align: center;
-      padding: 24px;
-      font-size: 0.9rem;
+    /* ── FLOATING BUTTON ── */
+    #vapiFloat {
+      position: fixed; bottom: 28px; right: 28px;
+      width: 62px; height: 62px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--blue-dk));
+      border: none; cursor: pointer;
+      box-shadow: 0 6px 24px rgba(14,165,233,0.45);
+      z-index: 9999; transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #vapiFloat:hover { transform: scale(1.1); box-shadow: 0 10px 32px rgba(14,165,233,0.55); }
+    #vapiFloat svg { width: 27px; height: 27px; fill: white; }
+    #vapiFloat.active { background: linear-gradient(135deg, #f43f5e, var(--red)); box-shadow: 0 6px 24px rgba(239,68,68,0.5); }
+
+    /* ── PULSE ANIMATION ── */
+    @keyframes pulse {
+      0%,100% { transform: scale(1); opacity: 1; }
+      50%      { transform: scale(1.4); opacity: 0.6; }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 60px 28px; min-height: auto; }
+      .hero-right { display: none; }
+      .hero h1 { font-size: 2.6rem; }
+      .section { padding: 70px 28px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .hours-inner { grid-template-columns: 1fr; gap: 32px; }
+      .hours-left .section-title { text-align: center; }
+      .hours-left .section-sub { text-align: center; margin: 0 auto 32px; }
+      .hours-left .section-label { text-align: center; }
+      .cta-strip { padding: 60px 28px; text-align: center; justify-content: center; }
+      nav { padding: 0 24px; }
+      nav ul { display: none; }
     }
   </style>
 </head>
 <body>
 
+  <!-- NAV -->
   <nav>
-    <div class="logo">Ganaden<span> Dental</span> Clinic</div>
+    <div class="logo">
+      <div class="logo-icon">👩‍⚕️</div>
+      Ganaden <span>&nbsp;Dental</span>
+    </div>
     <ul>
-      <li><a href="#">Services</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Hours</a></li>
-      <li><a href="#">Contact</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">Why Aria</a></li>
+      <li><a href="#hours">Hours</a></li>
+      <li><a href="#" class="nav-cta" onclick="startCall();return false;">📞 Book Now</a></li>
     </ul>
   </nav>
 
   <!-- HERO -->
   <section class="hero">
-    <h1>Your Smile, Our Priority</h1>
-    <p>Book your dental appointment instantly — just click below and talk to Aria, our AI receptionist. Available 24/7.</p>
-    <button class="aria-btn" onclick="startCall()">
-      <span class="pulse"></span>
-      Talk to Aria — Book Now
-    </button>
+    <div class="hero-left">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        AI Receptionist — Available 24/7
+      </div>
+      <h1>Healthy Teeth, <br>Happy <em>Smiles</em></h1>
+      <p class="hero-sub">
+        Gentle, professional dental care for the whole family. Talk to Aria, our AI receptionist,
+        to book appointments instantly — no hold music, no waiting.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="startCall()">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="white"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          Talk to Aria Now
+        </button>
+        <button class="btn-ghost" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">
+          View Services →
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">24/7</div>
+          <div class="stat-label">Always available</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">&lt;30s</div>
+          <div class="stat-label">Average booking time</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">No hold music</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-card">
+        <div class="card-header">
+          <div class="card-avatar">👩‍⚕️</div>
+          <div class="card-header-text">
+            <div class="name">Aria</div>
+            <div class="role">AI Dental Receptionist</div>
+          </div>
+          <div class="online-badge"><span class="online-dot"></span> Online</div>
+        </div>
+        <div class="chat-bubbles">
+          <div class="bubble aria">Hi! I'm Aria 👋 Ganaden Dental, how can I help?</div>
+          <div class="bubble user">I need a teeth cleaning for next week.</div>
+          <div class="bubble aria">Great! We have slots Monday at 10 AM or Wednesday at 2 PM — which works for you?</div>
+          <div class="bubble-typing">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+          </div>
+        </div>
+        <div class="card-services">
+          <span class="chip">🦷 Cleaning</span>
+          <span class="chip">✨ Whitening</span>
+          <span class="chip">🔧 Root Canal</span>
+          <span class="chip">😁 Orthodontics</span>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- SERVICES -->
-  <div class="section">
-    <h2>Our Services</h2>
-    <p class="subtitle">Comprehensive dental care for the whole family</p>
+  <div class="section services-bg" id="services">
+    <p class="section-label">What We Offer</p>
+    <h2 class="section-title">Comprehensive Dental Care</h2>
+    <p class="section-sub">From routine cleanings to advanced procedures — all under one roof.</p>
     <div class="services-grid">
       <div class="service-card">
-        <div class="icon">🦷</div>
+        <div class="service-icon">🦷</div>
         <h3>Dental Cleaning</h3>
-        <p>45 min · Preventive care</p>
+        <p>Professional plaque removal and polishing for a healthier, fresher smile.</p>
+        <span class="service-tag">45 min · Preventive</span>
       </div>
       <div class="service-card">
-        <div class="icon">✨</div>
+        <div class="service-icon">✨</div>
         <h3>Teeth Whitening</h3>
-        <p>60 min · Cosmetic</p>
+        <p>In-office whitening treatment for visibly brighter results in one visit.</p>
+        <span class="service-tag">60 min · Cosmetic</span>
       </div>
       <div class="service-card">
-        <div class="icon">🔍</div>
+        <div class="service-icon">🔍</div>
         <h3>General Checkup</h3>
-        <p>30 min · Consultation</p>
+        <p>Comprehensive oral exam with X-rays to detect and prevent issues early.</p>
+        <span class="service-tag">30 min · Consultation</span>
       </div>
       <div class="service-card">
-        <div class="icon">🦴</div>
+        <div class="service-icon">🦴</div>
         <h3>Tooth Extraction</h3>
-        <p>45 min · Oral surgery</p>
+        <p>Safe and comfortable removal of damaged or impacted teeth.</p>
+        <span class="service-tag">45 min · Oral Surgery</span>
       </div>
       <div class="service-card">
-        <div class="icon">🔧</div>
+        <div class="service-icon">🔧</div>
         <h3>Root Canal</h3>
-        <p>90 min · Restorative</p>
+        <p>Advanced treatment to save infected teeth and relieve severe pain.</p>
+        <span class="service-tag">90 min · Restorative</span>
       </div>
       <div class="service-card">
-        <div class="icon">😁</div>
+        <div class="service-icon">😁</div>
         <h3>Orthodontics</h3>
-        <p>30 min · Braces consult</p>
+        <p>Braces and aligner consultations to straighten your smile.</p>
+        <span class="service-tag">30 min · Alignment</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY ARIA -->
+  <div class="section" id="why">
+    <p class="section-label">Why Choose Us</p>
+    <h2 class="section-title">Booking Has Never Been Easier</h2>
+    <p class="section-sub">Aria handles everything so your team can focus on patient care.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon fi-blue">🕐</div>
+        <h3>Available 24/7</h3>
+        <p>Book at midnight, on weekends, or during holidays. Aria never sleeps and never puts you on hold.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-green">⚡</div>
+        <h3>Instant Booking</h3>
+        <p>Go from "I need an appointment" to confirmed booking in under 60 seconds — by voice.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-purple">🧠</div>
+        <h3>Smart & Natural</h3>
+        <p>Powered by advanced AI, Aria understands natural speech, handles follow-up questions, and remembers context.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-orange">📅</div>
+        <h3>Real-time Scheduling</h3>
+        <p>Checks live calendar availability and confirms your slot on the spot — no double-booking.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-pink">💌</div>
+        <h3>Auto Reminders</h3>
+        <p>Automatic email confirmations and reminders so patients never miss their appointment.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon fi-teal">🔒</div>
+        <h3>Private & Secure</h3>
+        <p>Your personal information stays safe. All data is encrypted and never shared with third parties.</p>
       </div>
     </div>
   </div>
 
   <!-- HOURS -->
-  <div class="hours-section">
+  <div class="section hours-bg" id="hours">
     <div class="hours-inner">
-      <h2>Office Hours</h2>
-      <table class="hours-table">
-        <tr><td>Monday – Friday</td><td>9:00 AM – 5:00 PM</td></tr>
-        <tr><td>Saturday</td><td>9:00 AM – 1:00 PM</td></tr>
-        <tr><td>Sunday</td><td>Closed</td></tr>
-        <tr><td>Public Holidays</td><td>Closed</td></tr>
-      </table>
+      <div class="hours-left">
+        <p class="section-label">Visit Us</p>
+        <h2 class="section-title">Office Hours</h2>
+        <p class="section-sub">Walk-ins welcome during open hours. Or skip the trip — book with Aria anytime.</p>
+        <button class="btn-primary" onclick="startCall()">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+          Book with Aria
+        </button>
+      </div>
+      <div class="hours-table-wrap">
+        <div class="hours-row">
+          <span class="hours-day">Monday – Friday</span>
+          <span class="hours-time">9:00 AM – 5:00 PM</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Saturday</span>
+          <span class="hours-time">9:00 AM – 1:00 PM</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Sunday</span>
+          <span class="hours-time closed">Closed</span>
+        </div>
+        <div class="hours-row">
+          <span class="hours-day">Public Holidays</span>
+          <span class="hours-time closed">Closed</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- CTA -->
-  <section class="cta">
-    <h2>Ready to Book?</h2>
-    <p>Aria is available 24/7 — no hold music, no waiting. Just click and talk.</p>
-    <button class="aria-btn" onclick="startCall()">
-      <span class="pulse"></span>
-      Call Aria Now
+  <!-- CTA STRIP -->
+  <div class="cta-strip">
+    <div class="cta-text">
+      <h2>Ready to Book Your Visit?</h2>
+      <p>No waiting, no hold music. Just click and speak — Aria will handle the rest in seconds.</p>
+    </div>
+    <button class="btn-white" onclick="startCall()">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
+      Call Aria Now — It's Free
     </button>
-  </section>
+  </div>
 
+  <!-- FOOTER -->
   <footer>
-    &copy; 2026 Ganaden Dental Clinic. All rights reserved.
+    &copy; 2026 <span>Ganaden Dental Clinic</span>. All rights reserved. &nbsp;·&nbsp; Powered by <span>Aria AI</span>
   </footer>
 
   <!-- Aria status indicator -->
@@ -232,19 +593,7 @@
     <span id="ariaStatusText">Aria is listening...</span>
   </div>
 
-  <!-- Custom floating button -->
-  <style>
-    #vapiFloat {
-      position: fixed; bottom: 28px; right: 28px;
-      width: 60px; height: 60px; border-radius: 50%;
-      background: #0ea5e9; border: none; cursor: pointer;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-      z-index: 9999; transition: background 0.2s, transform 0.2s;
-      display: flex; align-items: center; justify-content: center;
-    }
-    #vapiFloat:hover { transform: scale(1.08); }
-    #vapiFloat svg { width: 28px; height: 28px; fill: white; }
-  </style>
+  <!-- Floating phone button -->
   <button id="vapiFloat" onclick="startCall()" title="Talk to Aria">
     <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z"/></svg>
   </button>
@@ -268,7 +617,7 @@
           config: { display: "none" }
         });
         vapiInstance.on("call-start", function () {
-          document.getElementById("vapiFloat").style.background = "#ef4444";
+          document.getElementById("vapiFloat").classList.add("active");
           document.getElementById("ariaStatusText").textContent = "Connected to Aria...";
           document.getElementById("ariaStatus").classList.add("show");
         });
@@ -279,7 +628,7 @@
           document.getElementById("ariaStatusText").textContent = "Aria is listening...";
         });
         vapiInstance.on("call-end", function () {
-          document.getElementById("vapiFloat").style.background = "#0ea5e9";
+          document.getElementById("vapiFloat").classList.remove("active");
           document.getElementById("ariaStatus").classList.remove("show");
         });
       };
